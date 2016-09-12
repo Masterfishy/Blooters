@@ -49,6 +49,11 @@ class InputManager
 		}
 	}
 	
+	/**
+	 * changes map so that the newKey is assigned to newMovementState and removes any instances of the old movement state
+	 * @param	newKey 
+	 * @param	newMovementState this state will be assigned to the key
+	 */
 	public function changeKey(newKey:FlxKey,newMovementState:MovementState):Void
 	{
 		for (key in _inputMap.keys())
@@ -60,6 +65,22 @@ class InputManager
 		}
 		//is placed after removal so that it isn't removed with the original key
 		_inputMap[newKey] = newMovementState;
+	}
+	
+	/**
+	 * Get's key assigned to movement state
+	 * @param	movementState
+	 * @return returns key assigned to movementState
+	 */
+	public function getKey(movementState:MovementState):FlxKey
+	{
+		for (value in _inputMap)
+		{
+			if (value == movementState)
+			{
+				return value;
+			}
+		}
 	}
 	
 }
