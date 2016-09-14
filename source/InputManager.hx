@@ -19,16 +19,12 @@ enum MovementState
 	p2Right;
 	p2Left;
 }
-class InputManager
+static class InputManager
 {
 	/**
 	 * Maps out a keys and movements
 	 */
-	private var _inputMap:Map<FlxKey, MovementState>;
-
-	public function new() 
-	{
-		_inputMap = [
+	private static var _inputMap:Map<FlxKey, MovementState> = [
 			FlxKey.UP    => p2Up,
 			FlxKey.DOWN  => p2Down,
 			FlxKey.RIGHT => p2Right,
@@ -38,15 +34,23 @@ class InputManager
 			FlxKey.D     => p1Right,
 			FlxKey.A     => p1Left
 		];
-	}
-	public function processInput():Void
+
+
+	/**
+	 * Returns MovementState(s) that are currently active based on keys pressed
+	 * @return 
+	 */
+	public static function getInput():Array<MovementState>
 	{
+		var inputStates = new Array<MovementState>();
 		for (key in _inputMap.keys())
 		{
 			if (FlxG.keys.checkStatus(key, FlxInputState.PRESSED)
-				//TODO: place key logic depending on the input state, we can access what movement state should be toggled with _inputMap[key]
-				
+			{
+				inputStates.push(_inputMap[key]);
+			}
 		}
+		return inputStates;
 	}
 	
 	/**
@@ -54,7 +58,7 @@ class InputManager
 	 * @param	newKey 
 	 * @param	newMovementState this state will be assigned to the key
 	 */
-	public function changeKey(newKey:FlxKey,newMovementState:MovementState):Void
+	public static function changeKey(newKey:FlxKey,newMovementState:MovementState):Void
 	{
 		for (key in _inputMap.keys())
 		{
@@ -72,7 +76,7 @@ class InputManager
 	 * @param	movementState
 	 * @return returns key assigned to movementState
 	 */
-	public function getKey(movementState:MovementState):FlxKey
+	public static function getKey(movementState:MovementState):FlxKey
 	{
 		for (value in _inputMap)
 		{
