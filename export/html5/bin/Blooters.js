@@ -63,7 +63,7 @@ ApplicationMain.init = function() {
 	if(total == 0) ApplicationMain.start();
 };
 ApplicationMain.main = function() {
-	ApplicationMain.config = { build : "1", company : "Nicholas Christensen", file : "Blooters", fps : 60, name : "Blooters", orientation : "", packageName : "com.example.myapp", version : "0.0.1", windows : [{ antialiasing : 0, background : 0, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : false, height : 480, parameters : "{}", resizable : false, stencilBuffer : true, title : "Blooters", vsync : true, width : 640, x : null, y : null}]};
+	ApplicationMain.config = { build : "4", company : "Nicholas Christensen", file : "Blooters", fps : 60, name : "Blooters", orientation : "", packageName : "com.example.myapp", version : "0.0.1", windows : [{ antialiasing : 0, background : 0, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : false, height : 480, parameters : "{}", resizable : false, stencilBuffer : true, title : "Blooters", vsync : true, width : 640, x : null, y : null}]};
 };
 ApplicationMain.start = function() {
 	var hasMain = false;
@@ -2408,10 +2408,16 @@ MenuState.__name__ = ["MenuState"];
 MenuState.__super__ = flixel_FlxState;
 MenuState.prototype = $extend(flixel_FlxState.prototype,{
 	create: function() {
+		this._btnPlay = new flixel_ui_FlxButton(0,0,"Play",$bind(this,this.onPlayClick));
+		this._btnPlay.screenCenter();
+		this.add(this._btnPlay);
 		flixel_FlxState.prototype.create.call(this);
 	}
 	,update: function(elapsed) {
 		flixel_FlxState.prototype.update.call(this,elapsed);
+	}
+	,onPlayClick: function() {
+		flixel_FlxG.switchState(new PlayState());
 	}
 	,__class__: MenuState
 });
@@ -2469,6 +2475,21 @@ NMEPreloader.prototype = $extend(openfl_display_Sprite.prototype,{
 		this.progress.set_scaleX(percentLoaded);
 	}
 	,__class__: NMEPreloader
+});
+var PlayState = function(MaxSize) {
+	flixel_FlxState.call(this,MaxSize);
+};
+$hxClasses["PlayState"] = PlayState;
+PlayState.__name__ = ["PlayState"];
+PlayState.__super__ = flixel_FlxState;
+PlayState.prototype = $extend(flixel_FlxState.prototype,{
+	create: function() {
+		flixel_FlxState.prototype.create.call(this);
+	}
+	,update: function(elapsed) {
+		flixel_FlxState.prototype.update.call(this,elapsed);
+	}
+	,__class__: PlayState
 });
 var Reflect = function() { };
 $hxClasses["Reflect"] = Reflect;
